@@ -28,34 +28,16 @@ import sys
 import calendar
 from datetime import datetime
 
-thismonth = datetime.today().month
-thisyear = datetime.today().year
+args = [int(i) for i in sys.argv[1:]]
+cal = calendar.TextCalendar()
 
-cal = calendar.TextCalendar(calendar.SUNDAY)
-
-def newcal(a = thismonth, b = thisyear):
-    return cal.formatmonth(b, a)
-
-# user input
-if len(sys.argv) == 1:
-     print(newcal(thismonth, thisyear))
-elif len(sys.argv) == 2:
-    try:
-        int(sys.argv[1])
-        month = int(sys.argv[1])
-        print(newcal(month))
-    except ValueError:
-        print('Please enter a valid month in integer')
-elif len(sys.argv) == 3:
-    try:
-        int(sys.argv[1]) and int(sys.argv[2])
-        month = int(sys.argv[1])
-        year = int(sys.argv[2])
-        print(newcal(month, year))
-    except ValueError:
-        print('Please enter a valid month and year in integer')
+if len(args) == 2:
+    print(cal.formatmonth(args[1], args[0]))
+elif len(args) == 1:
+        print(cal.formatmonth(datetime.now().year, args[0]))
+elif len(args) == 0:
+    print(cal.formatmonth(datetime.now().year, datetime.now().month))
 else:
-    print('Plase use the format (cal.py mm yyyy)')
-
-
+    print('''Error. Usage statement for format: python3 14_cal.py month int year int
+                            python 14_cal.py month int''')
 
